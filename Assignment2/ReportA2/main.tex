@@ -1,0 +1,284 @@
+% This must be in the first 5 lines to tell arXiv to use pdfLaTeX, which is strongly recommended.
+\pdfoutput=1
+% In particular, the hyperref package requires pdfLaTeX in order to break URLs across lines.
+
+\documentclass[11pt]{article}
+
+% Remove the "guidelines" option to generate the final version.
+%\usepackage[guidelines]{nlpreport} % show guidelines  <---------------------
+\usepackage[]{nlpreport} % hide guidelines
+
+
+% Standard package includes
+\usepackage{times}
+\usepackage{latexsym}
+\usepackage{float}
+
+% For proper rendering and hyphenation of words containing Latin characters (including in bib files)
+\usepackage[T1]{fontenc}
+% For Vietnamese characters
+% \usepackage[T5]{fontenc}
+% See https://www.latex-project.org/help/documentation/encguide.pdf for other character sets
+
+% This assumes your files are encoded as UTF8
+\usepackage[utf8]{inputenc}
+
+% This is not strictly necessary, and may be commented out,
+% but it will improve the layout of the manuscript,
+% and will typically save some space.
+
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{multirow}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{booktabs} % for tables
+
+
+
+
+
+
+% THE pdfinfo Title AND Author ARE NOT NECESSARY, THEY ARE METADATA FOR THE FINAL PDF FILE
+\hypersetup{pdfinfo={
+Title={Guidelines and template for NLP coursework report},
+Author={Jane Smith \& John Doe}
+}}
+%\setcounter{secnumdepth}{0}  
+ \begin{document}
+%
+\title{Assignment 2\\
+\explanation{\rm Substitute the $\uparrow$ title $\uparrow$ with your project's title, or with Assignment 1 / 2\\ \smallskip}
+% subtitle:
+\large \explanation{\rm $\downarrow$ Keep only one of the following three  labels  / leave empty for assignments: $\downarrow$\\}
+
+}
+\author{Mattia Buzzoni,
+Mirko Mornelli
+\and
+Riccardo Romeo
+\\
+Master's Degree in Artificial Intelligence, University of Bologna\\
+\{ mattia.buzzoni, mirko.mornelli, riccardo.romeo \}@studio.unibo.it
+}
+\maketitle
+
+
+\attention{DO NOT MODIFY THIS TEMPLATE - EXCEPT, OF COURSE FOR TITLE, SUBTITLE AND AUTHORS.\\ IN THE FINAL VERSION, IN THE \LaTeX\ SOURCE REMOVE THE \texttt{guidelines} OPTION FROM  \texttt{$\backslash$usepackage[guidelines]\{nlpreport\}}.
+}
+
+\begin{abstract}
+%\begin{quote}
+Comparative analysis of instruction based popular models for sexist text classification: evaluating Phi3-mini and Mistral v3 models across two English datasets, with a focus on Zero-Shot and Few-Shot as prompting techniques.
+
+\explanation{
+The abstract is very brief summary of your report. Try to keep it no longer than 15-20 lines at most. Write your objective, your approach, and your main observations (what are the findings that make this report worthwhile reading?)}
+
+%\end{quote}
+\end{abstract}
+
+\attention{\textcolor{red}{NOTICE: THIS REPORT'S LENGTH MUST RESPECT THE FOLLOWING PAGE LIMITS: \begin{itemize}
+    \item ASSIGNMENT: \textbf{2 PAGES} 
+    \item NLP PROJECT OR PROJECT WORK: \textbf{8 PAGES}
+    \item COMBINED NLP PROJECT + PW: \textbf{12 PAGES}
+\end{itemize}  PLUS LINKS, REFERENCES AND APPENDICES.\\ 
+THIS MEANS THAT YOU CANNOT FILL ALL SECTIONS TO MAXIMUM LENGTH. IT ALSO MEANS THAT, QUITE POSSIBLY, YOU WILL HAVE TO LEAVE OUT OF THE REPORT PART OF THE WORK YOU HAVE DONE OR OBSERVATIONS YOU HAVE. THIS IS NORMAL: THE REPORT SHOULD EMPHASIZE WHAT IS MOST SIGNIFICANT, NOTEWORTHY, AND REFER TO THE NOTEBOOK FOR ANYTHING ELSE.\\ 
+FOR ANY OTHER ASPECT OF YOUR WORK THAT YOU WOULD LIKE TO EMPHASIZE BUT CANNOT EXPLAIN HERE FOR LACK OF SPACE, FEEL FREE TO ADD COMMENTS IN THE NOTEBOOK.\\ 
+INTERESTING TEXT EXAMPLES THAT EXCEED THE MAXIMUM LENGTH OF THE REPORT CAN BE PLACED IN A DEDICATED APPENDIX AFTER THE REFERENCES.}}
+
+
+\section{Introduction}
+\label{sec:introduction}
+
+This work analyzes the performance of two instruction-based open-source models in classifying English texts as sexist or not. We implemented Zero-Shot and Few-Shot inference methods, testing Few-Shot with both two and four demonstrations to evaluate sensitivity to the number of examples.
+
+Our findings indicate that both models performed worse in the Zero-Shot scenario, with Phi3-mini slightly outperforming Mistral-v3 in this context. However, in Few-Shot inference, Mistral-v3 surpassed Phi3-mini, although increasing examples significantly improved Phi3-mini's performance, while the effect on Mistral-v3 was less pronounced.
+
+Surprisingly, the model with more parameters did not significantly outpace the one with fewer. Both models struggled with the Assignment 2 dataset but performed better on the Assignment 1 dataset.
+
+
+\attention{MAX 1 COLUMN FOR ASSIGNMENT REPORTS / 2 COLUMNS FOR PROJECT OR PW / 3 FOR COMBINED REPORTS.}
+
+\explanation{
+The Introduction is an executive summary, which you can think of as an extended abstract.  Start by writing a brief description of the problem you are tackling and why it is important. (Skip it if this is an assignment report).} 
+
+\explanation{Then give a short overview of known/standard/possible approaches to that problems, if any, and what are their advantages/limitations.} 
+
+\explanation{After that, discuss your approach, and motivate why you follow that approach. If you are drawing inspiration from an existing model, study, paper, textbook example, challenge, \dots, be sure to add all the necessary references~\cite{DBLP:journals/corr/abs-2204-02311,DBLP:conf/acl/LorenzoMN22,DBLP:conf/clef/AnticiBIIGR21,DBLP:conf/ijcai/NakovCHAEBPSM21,DBLP:conf/naacl/RottgerVHP22,DBLP:journals/toit/LippiT16}.\footnote{\href{https://en.wikipedia.org/wiki/The_Muppet_Show}{Add only what is relevant.}}}
+
+\explanation{Next, give a brief summary of your experimental setup: how many experiments did you run on which dataset. Last, make a list of the main results or take-home lessons from your work.}
+
+\attention{HERE AND EVERYWHERE ELSE: ALWAYS KEEP IN MIND THAT, CRUCIALLY, WHATEVER TEXT/CODE/FIGURES/IDEAS/... YOU TAKE FROM ELSEWHERE MUST BE CLEARLY IDENTIFIED AND PROPERLY REFERENCED IN THE REPORT.}
+
+%\section{Background}
+%\label{sec:background}
+%\attention{MAX 2 COLUMNS (3 FOR COMBINED REPORTS). DO NOT INCLUDE SECTION IF NO BACKGROUND NECESSARY. OMIT SECTION IN ASSIGNMENT REPORTS.}
+
+%\explanation{The Background section is where you briefly provide whatever background information on the domain or challenge you're addressing and/or on the techniques/approaches you're using, that (1) you think is necessary for the reader to understand your work and design choices, and (2) is not something that has been explained to you during the NLP course (to be clear: do NOT repeat explanations of things seen in class, we already know that stuff). If you adapt paragraphs from articles, books, online resources, etc: be sure to clarify which parts are yours and which ones aren't.}
+
+
+
+\section{System description}
+\label{sec:system}
+We downloaded the dataset and converted it into Pandas DataFrames. We created three datasets: one for demonstrations and two containing texts to be injected into the models. Notably, one of these datasets was derived from the texts used in Assignment 1.
+
+Subsequently, we selected two models to download from Hugging Face: Phi3-mini \cite{arXiv.2404.14219} and Mistral v3 \cite{arXiv:2310.06825}. This choice was made to ensure we had a model with a smaller number of parameters alongside one with a larger parameter set.
+
+\attention{MAX 1 COLUMN FOR ASSIGNMENT REPORTS / 4 COLUMNS FOR PROJECT OR PW / 6 FOR COMBINED REPORTS.}
+
+\explanation{
+Describe the system or systems you have implemented (architectures, pipelines, etc), and used to run your experiments. If you reuse parts of code written by others, be sure to make very clear your original contribution in terms of
+\begin{itemize}
+    \item architecture: is the architecture your design or did you take it from somewhere else
+    \item coding: which parts of code are original or heavily adapted? adapted from existing sources? taken from external sources with minimal adaptations?
+\end{itemize}
+It is a good idea to add figures to illustrate your pipeline and/or architecture(s)
+(see Figure~\ref{fig:architecture})
+%
+%\begin{figure*}
+%    \centering
+%    \includegraphics[width=\textwidth]{img/architecture.pdf}
+%    \caption{Model architecture}
+%    \label{fig:architecture}
+%\end{figure*}
+}
+
+
+
+%\section{Data}
+%\label{sec:data}
+%\attention{MAX 2 COLUMNS / 3 FOR COMBINED REPORTS. OMIT SECTION IN ASSIGNMENT REPORTS.}
+
+%\explanation{Provide a brief description of your data including some statistics and pointers (references to articles/URLs) to be used to obtain the data. Describe any pre-processing work you did. Links to datasets must be placed later in Section~\ref{sec:links}.}
+
+
+\section{Experimental setup and results}
+\label{sec:results}
+We evaluated both models using Zero-Shot and Few-Shot Inference, measuring metrics such as Accuracy, macro-averaged F1-Score, and Fail Ratio.
+
+To accomplish this, we utilized the prompt templates presented in the Assignment, tokenizing them with the appropriate tokenizer for each model. The Few-Shot examples were randomly selected from the demonstration dataset.
+
+Specifically, we tested the two models in Few-Shot Inference with varying numbers of examples to determine if an increased number of examples would enhance performance. Initially, we used two demonstrations, followed by four.
+
+We also assessed the models on the dataset containing tweets from the first Assignment to compare their behaviors across different datasets. It’s important to note that we employed the same demonstration dataset for Few-Shot Inference in both cases to ensure a fair comparison. Additionally, we constructed the dataset from Assignment 1 to match the number of samples in the dataset from Assignment 2 for the same reason.
+
+Finally, we organized the results into tables, plots, and confusion matrices to facilitate a comparison between the models across both inference scenarios and datasets.
+
+
+\begin{table}[H]
+\centering
+    \begin{tabular}{|c|c|c|c|c|} 
+        \hline
+        \multirow{2}{*}{\# demo} & \multicolumn{2}{c|}{Phi3-mini} & \multicolumn{2}{c|}{Mistral v3} \\
+        \cline{2-5}
+        & \text{Acc.} & \text{F1}  & \text{Acc.} & \text{F1}\\
+        \hline
+        2 & 0.64 & 0.61 & 0.69 & 0.70\\
+        4 & 0.69 & 0.70 & 0.69 & 0.70\\
+        \hline
+    \end{tabular}
+    \caption{Models performances in terms of Accuracy and F1-macro, evaluated on A2 dataset during Few-Shot.}
+\end{table}
+
+
+\attention{MAX 1 COLUMN FOR ASSIGNMENT REPORTS / 3 COLUMNS FOR PROJECT OR PW / 5 FOR COMBINED REPORTS.}
+
+\explanation{
+Describe how you set up your experiments: which architectures/configurations you used, which hyper-parameters and what methods used to set them, which optimizers, metrics, etc.
+\\
+Then, \textbf{use tables} to summarize your your findings (numerical results) in validation and test. If you don't have experience with tables in \LaTeX, you might want to use \href{https://www.tablesgenerator.com/}{\LaTeX table generator} to quickly create a table template.
+}
+
+
+\begin{table*}[!t]
+\centering
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|} 
+        \hline
+        \multirow{2}{*}{Dataset} & \multirow{2}{*}{Prompt tech.} & \multicolumn{5}{c|}{Phi3-mini} & \multicolumn{5}{c|}{Mistral v3} \\
+        \cline{3-12}
+        & &\text{Acc.} & \text{F1} & \text{FP} & \text{FN} & \text{TOT} &\text{Acc.} & \text{F1} & \text{FP} & \text{FN} & \text{TOT}\\
+        \hline
+        \multirow{2}{*}{A1 dataset} & Zero-Shot & 0.73 & 0.72 & 0.31 & 0.19 & 82 & 0.75 & 0.75 &                                              0.31 & 0.18 & 74\\
+                                    & Few-Shot & 0.77 & 0.77 & 0.22 & 0.28 & 70 & 0.76 & 0.76 &                  0.21 & 0.29 & 71\\
+        \hline
+        \multirow{2}{*}{A2 dataset} & Zero-Shot & 0.59 & 0.52 & 0.40 & 0.01 & 123 & 0.56 & 0.45 &                                             0.44 & 0 & 132 \\
+                                    & Few-Shot & 0.67 & 0.65 & 0.22 & 0.087 & 91 & 0.70 & 0.69 & 0.39 & 0.0067 & 119\\
+        \hline
+    \end{tabular}
+    \caption{Models performances in terms of Accuracy, F1-Macro, normalized False Positives (FP), normalized False Negatives (FN) and the total number of missclassifications (TOT) evaluated on A1 and A2 datasets.}
+\end{table*}
+
+
+\section{Discussion}
+\label{sec:discussion}
+In all our experiments, both models consistently achieved a null Fail Ratio, indicating they never failed to complete the tasks.
+
+When testing the models with Few-Shot prompting on the Assignment 2 dataset, we observed that Mistral-v3 showed limited sensitivity to the increase in the number of demonstrations within the prompt. It performed similarly in both scenarios, while Phi3-mini demonstrated improved performance with more examples (see Table 1).
+
+Our experiments revealed that Few-Shot inference consistently yielded better results compared to Zero-Shot inference in terms of Accuracy, F1-score, and total misclassifications (see Table 2).
+
+Notably, with Few-Shot inference, the normalized number of False Positives decreased for both models, regardless of the dataset used. In contrast, the normalized number of False Negatives exhibited a complementary trend.
+
+Overall, both models performed better on texts from the Assignment 1 dataset compared to those from Assignment 2, as evidenced by improvements in Accuracy, F1-score, and the total number of misclassifications.
+
+Interestingly, Few-Shot inference led to significantly better results with the second dataset, whereas its effectiveness was less pronounced with the first dataset.
+
+Upon reviewing several texts from the Assignment 2 dataset, we found them more challenging to classify without contextual information. This is evident in the false positives generated by the models. For instance, some texts that could be considered genuinely sexist were labeled by annotators as non-sexist. An example of this is: \textit{"Import the third world and become the third world. You won’t see feminists protesting about this. [URL]"}.
+
+
+\attention{MAX 1.5 COLUMNS FOR ASSIGNMENT REPORTS / 3 COLUMNS FOR PROJECT / 4 FOR COMBINED REPORTS. ADDITIONAL EXAMPLES COULD BE PLACED IN AN APPENDIX AFTER THE REFERENCES IF THEY DO NOT FIT HERE.}
+
+
+\explanation{
+Here you should make your analysis of the results you obtained in your experiments. Your discussion should be structured in two parts: 
+\begin{itemize}
+    \item discussion of quantitative results (based on the metrics you have identified earlier; compare with baselines);
+    \item error analysis: show some examples of odd/wrong/unwanted  outputs; reason about why you are getting those results, elaborate on what could/should be changed in future developments of this work.
+\end{itemize}
+}
+
+
+
+\section{Conclusion}
+\label{sec:conclusion}
+In this work, we conducted an evaluation of two models, Phi3-mini and Mistral-v3, using both Zero-Shot and Few-Shot inference on datasets derived from two Assignments. Our findings indicated that both models consistently achieved a null Fail Ratio, demonstrating their reliability in task completion. Notably, Few-Shot inference outperformed Zero-Shot across all metrics, including Accuracy and F1-score, with Phi3-mini showing significant improvement as the number of examples increased. However, Mistral-v3's performance remained stable regardless of the number of demonstrations, which was unexpected.
+
+Despite these promising results, several limitations were identified. The models exhibited challenges in accurately classifying texts from the Assignment 2 dataset. Suggesting to use a more representative demonstration dataset during Few-Shot inference. Additionally, while Few-Shot inference proved beneficial, its effectiveness varied between datasets, highlighting the greater complexity of the second dataset.
+
+Future work could explore employing the Chain of Thoughts prompting technique to enhance performance on both datasets. Moreover, trying to increase the number of examples in Few-Shot inference could be interesting. Additionally, experimenting with a more representative demonstration dataset may yield further improvements.
+
+\attention{MAX 1 COLUMN.}
+
+\explanation{
+In one or two paragraphs, recap your work and main results.
+What did you observe? 
+Did all go according to expectations? 
+Was there anything surprising or worthwhile mentioning?
+After that, discuss the main limitations of the solution you have implemented, and indicate promising directions for future improvement.
+}
+
+
+
+\section{Links to external resources}
+\label{sec:links}
+\attention{THIS SECTION IS OPTIONAL}
+\explanation{
+}
+
+\begin{itemize}
+    \item \href{https://huggingface.co/microsoft/Phi-3-mini-4k-instruct}{
+Phi-3-mini-4k-instruct }
+    \item \href{https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.3}{
+Mistral-7B-Instruct-v0.3}
+\end{itemize}
+
+\attention{DO NOT INSERT CODE IN THIS REPORT}
+
+
+
+
+\bibliography{nlpreport.bib}
+\end{document}
